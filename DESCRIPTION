@@ -1,0 +1,21 @@
+Package: fredo
+Title: Fetch Data from the FRED API
+Version: 0.1.0
+Authors@R: c(
+    person(
+        given = "Manu",
+        family = "Garcia",
+        email = "manu@wustl.edu",
+        role = c("aut", "cre")
+    )
+    )
+Description: Provides functions to fetch economic data from the Federal Reserve Economic Data (FRED) API.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports:
+    httr,
+    jsonlite,
+    dplyr
