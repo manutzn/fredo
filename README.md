@@ -41,3 +41,19 @@ install.packages("devtools")
 
 # Install fredapi from GitHub
 devtools::install_github("manutzn/fredo")
+
+## Prerequisites
+
+The package depends on the following R packages:
+
+- `httr` (≥ 1.4.0)
+- `jsonlite` (≥ 1.6)
+- `dplyr` (≥ 0.8.0)
+
+You can install these packages using:
+
+```r
+install.packages(c("httr", "jsonlite", "dplyr"))
+
+
+
