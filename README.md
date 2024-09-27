@@ -41,6 +41,7 @@ install.packages("devtools")
 
 # Install fredapi from GitHub
 devtools::install_github("manutzn/fredo")
+```
 
 ## Prerequisites
 
