@@ -1,0 +1,162 @@
+
+---
+title: "Using fredo for FRED Data Analysis in R"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using fredo for FRED Data Analysis in R}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+`fredo` is an R package designed to simplify and automate the process of downloading, processing, and visualizing data from the Federal Reserve Economic Data (FRED) API. With a focus on providing an accessible interface for researchers and data analysts, `fredo` allows you to generate customizable plots and export them for use in reports or publications.
+
+The package also provides tools to retrieve and plot historical economic data while including options for recession shading, date filtering, and customization of plot dimensions. 
+
+# Key Features
+- **Automated Data Retrieval:** Retrieve FRED data directly from the API using the `fredo` package, simplifying the process of downloading and processing economic data.
+- **Flexible Plotting:** `plot_fredo` allows you to create individual or combined plots with extensive customization, including adding recession bars, changing plot dimensions, and generating LaTeX code.
+- **Data Filtering:** Filter data based on start and end dates for focused analysis.
+- **Export Options:** Save plots as PDFs for further use in reports, papers, or presentations.
+
+# Installation
+To install `fredo`, use the following command to get it directly from GitHub:
+  
+```r
+# Install devtools if you haven't already
+install.packages("devtools")
+
+# Install fredo package from GitHub
+devtools::install_github("manutzn/fredo")
+```
+
+Once installed, load the package into your R session:
+  
+```r
+library(fredo)
+```
+
+# Setting Up Your FRED API Key
+To use `fredo` to fetch data from the FRED API, you need to obtain an API key:
+
+1. **Register for an API Key:**
+   - Visit the [FRED API Key Registration](https://fred.stlouisfed.org/docs/api/api_key.html) page.
+   - Follow the instructions to register and obtain your unique API key.
+
+2. **Store Your API Key Securely:**
+   - **Option 1:** Assign it directly in your R script (not recommended for shared code).
+     ```r
+     api_key <- "your_api_key_here"
+     ```
+   - **Option 2:** Set it as an environment variable in your `.Renviron` file. Add the following line to your `.Renviron` file:
+     ```
+     FRED_API_KEY=your_api_key_here
+     ```
+     Then access it in R using:
+     ```r
+     api_key <- Sys.getenv("FRED_API_KEY")
+     ```
+
+# The `fredo` Function
+The main function in the package is `fredo()`, which allows you to fetch data from the FRED API. The function retrieves data for specified series IDs over a date range and returns a data frame for easy analysis.
+
+## Function Signature
+```r
+fredo(api_key, series_ids, start_date, end_date)
+```
+
+## Parameters
+- `api_key`: Your FRED API key as a string.
+- `series_ids`: A character vector of FRED series IDs to retrieve (e.g., `c("GNPCA", "UNRATE")`).
+- `start_date`: The start date for data retrieval in `'YYYY-MM-DD'` format.
+- `end_date`: The end date for data retrieval in `'YYYY-MM-DD'` format.
+
+## Returns
+A data frame containing the combined data for all specified series, with columns including 'date', 'value', 'id', and 'title'.
+
+# Basic Usage of `fredo`
+Here’s how to use `fredo` to fetch data from the FRED API:
+
+```r
+# Set your FRED API key
+api_key <- Sys.getenv("FRED_API_KEY")  # Recommended method
+
+# Define the series IDs and date range
+series_ids <- c("GNPCA", "UNRATE")
+start_date <- "1950-01-01"
+end_date <- "2024-12-31"
+
+# Fetch the data
+data <- fredo(api_key, series_ids, start_date, end_date)
+
+# View the first few rows of the data
+head(data)
+```
+
+**Sample Output:**
+```
+        date    value    id                        title
+1 1950-01-01  2198.50 GNPCA Real Gross National Product
+2 1951-01-01  2373.70 GNPCA Real Gross National Product
+3 1952-01-01  2474.70 GNPCA Real Gross National Product
+4 1953-01-01  2607.70 GNPCA Real Gross National Product
+5 1954-01-01  2635.10 GNPCA Real Gross National Product
+6 1955-01-01  2808.50 GNPCA Real Gross National Product
+```
+
+# Advanced Features and Customization with `plot_fredo`
+The `plot_fredo` function offers several parameters to customize the generated plots:
+
+## Combining Multiple Series
+To combine multiple series into one plot, set the `combine` parameter to `TRUE`:
+
+```r
+plot_fredo(
+  dataset = fred_data,
+  path = "output_directory/",
+  combine = TRUE
+)
+```
+
+## Adding or Removing Recession Bars
+You can include recession bars in your plots by default. To remove them, set `show_recessions` to `FALSE`:
+
+```r
+plot_fredo(
+  dataset = fred_data,
+  path = "output_directory/",
+  show_recessions = FALSE
+)
+```
+
+## Adjusting Plot Size
+Customize the dimensions of your plot by setting `plot_width` and `plot_height`:
+
+```r
+plot_fredo(
+  dataset = fred_data,
+  path = "output_directory/",
+  plot_width = 20,
+  plot_height = 15
+)
+```
+
+## Generating LaTeX Code
+By default, `plot_fredo` generates LaTeX code for the plots, which can be useful for academic papers. To disable this, set `generate_latex` to `FALSE`:
+
+```r
+plot_fredo(
+  dataset = fred_data,
+  path = "output_directory/",
+  generate_latex = FALSE
+)
+```
+
+# Example Workflow
+1. **Retrieve FRED Data:** Use the `fredo` function to download economic data from the FRED database.
+2. **Prepare Dataset:** Format the retrieved data to include the necessary columns (`title`, `date`, `value`, etc.).
+3. **Plot Data:** Use `plot_fredo` to generate plots based on your dataset, customize them as needed, and save the output in your specified directory.
+4. **Include in Reports:** Use the generated PDFs and optional LaTeX code to include the plots in your reports or publications.
+
+# Conclusion
+`fredo` streamlines the process of downloading, visualizing, and exporting economic data from the FRED API. With its flexible plotting options, you can create informative and customizable visualizations that suit your analysis and reporting needs. For more information, examples, and updates, please visit the [GitHub repository](https://github.com/manutzn/fredo).
