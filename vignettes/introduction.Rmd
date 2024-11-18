@@ -30,10 +30,11 @@ install.packages("devtools")
 devtools::install_github("manutzn/fredo")
 ```
 
-Once installed, load the package into your R session:
+Once installed, load the packages into your R session:
   
 ```r
 library(fredo)
+library(jsonlite)
 ```
 
 # Setting Up Your FRED API Key
@@ -141,8 +142,12 @@ plot_fredo(
 )
 ```
 
-## Generating LaTeX Code
-By default, `plot_fredo` generates LaTeX code for the plots, which can be useful for academic papers. To disable this, set `generate_latex` to `FALSE`:
+
+# Example Workflow
+1. **Retrieve FRED Data:** Use the `fredo` function to download economic data from the FRED database.
+2. **Prepare Dataset:** Format the retrieved data to include the necessary columns (`title`, `date`, `value`, etc.).
+3. **Plot Data:** Use `plot_fredo` to generate plots based on your dataset, customize them as needed, and save the output in your specified directory.
+4. **Include in Reports:** Use the generated PDFs and optional LaTeX code to include the plots in your reports or publications.
 
 ```r
 plot_fredo(
@@ -151,12 +156,6 @@ plot_fredo(
   generate_latex = FALSE
 )
 ```
-
-# Example Workflow
-1. **Retrieve FRED Data:** Use the `fredo` function to download economic data from the FRED database.
-2. **Prepare Dataset:** Format the retrieved data to include the necessary columns (`title`, `date`, `value`, etc.).
-3. **Plot Data:** Use `plot_fredo` to generate plots based on your dataset, customize them as needed, and save the output in your specified directory.
-4. **Include in Reports:** Use the generated PDFs and optional LaTeX code to include the plots in your reports or publications.
 
 # Conclusion
 `fredo` streamlines the process of downloading, visualizing, and exporting economic data from the FRED API. With its flexible plotting options, you can create informative and customizable visualizations that suit your analysis and reporting needs. For more information, examples, and updates, please visit the [GitHub repository](https://github.com/manutzn/fredo).

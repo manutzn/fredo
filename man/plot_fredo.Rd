@@ -11,7 +11,7 @@ plot_fredo(
   end = "2024-12-31",
   combine = FALSE,
   show_recessions = TRUE,
-  generate_latex = TRUE,
+  generate_latex = FALSE,
   plot_width = 14.14,
   plot_height = 10
 )

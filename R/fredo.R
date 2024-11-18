@@ -26,6 +26,16 @@
 #'
 #' @export
 fredo <- function(api_key, series_ids, start_date, end_date) {
+  # Load required libraries
+  if (!requireNamespace("ggplot2", quietly = TRUE)) {
+    stop("Package 'ggplot2' is required but is not installed.")
+  }
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("Package 'dplyr' is required but is not installed.")
+  }
+  if (!requireNamespace("jsonlite", quietly = TRUE)) {
+    stop("Package 'jsonlite' is required but is not installed.")
+  }
   # Initialize an empty list to store results
   dataset_list <- list()
 

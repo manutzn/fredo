@@ -65,7 +65,7 @@
 #'   generate_latex = FALSE
 #' )
 plot_fredo <- function(dataset, path, start = '1950-01-01', end = '2024-12-31',
-                       combine = FALSE, show_recessions = TRUE, generate_latex = TRUE,
+                       combine = FALSE, show_recessions = TRUE, generate_latex = FALSE,
                        plot_width = 14.14, plot_height = 10) {
   # Load required libraries
   if (!requireNamespace("ggplot2", quietly = TRUE)) {
@@ -73,6 +73,9 @@ plot_fredo <- function(dataset, path, start = '1950-01-01', end = '2024-12-31',
   }
   if (!requireNamespace("dplyr", quietly = TRUE)) {
     stop("Package 'dplyr' is required but is not installed.")
+  }
+  if (!requireNamespace("jsonlite", quietly = TRUE)) {
+    stop("Package 'jsonlite' is required but is not installed.")
   }
 
   # Explicitly load the packages
